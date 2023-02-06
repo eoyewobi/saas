@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Server Request</title>
+  </head>
+  <body>
+    <h1>Server Request</h1>
+    <form action="{{ url_for('create_server') }}" method="post">
+      <div>
+        <label for="server_type">Server Type:</label>
+        <select id="server_type" name="server_type">
+          <option value="standard">Standard</option>
+          <option value="performance">Performance</option>
+        </select>
+      </div>
+      <div>
+        <label for="server_region">Server Region:</label>
+        <select id="server_region" name="server_region">
+          <option value="us-east">US East</option>
+          <option value="us-west">US West</option>
+          <option value="eu-west">EU West</option>
+        </select>
+      </div>
+      <div>
+        <input type="submit" value="Request Server">
+      </div>
+    </form>
+  </body>
+</html>

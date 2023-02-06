@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>PC Gaming Server Login</title>
+  </head>
+  <body>
+    <h1>PC Gaming Server Login</h1>
+    <form action="{{ url_for('login') }}" method="post">
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Login">
+    </form>
+  </body>
+</html>

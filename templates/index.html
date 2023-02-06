@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>PC Gaming Server Application</title>
+  </head>
+  <body>
+    <h1>PC Gaming Server Application</h1>
+    {% if current_user.is_authenticated %}
+      <p>Welcome {{ current_user.username }}!</p>
+      <a href="{{ url_for('server_request_page') }}">Request a Server</a>
+    {% else %}
+      <p>Welcome! Please <a href="{{ url_for('login') }}">login</a> to access the server request page.</p>
+    {% endif %}
+  </body>
+</html>

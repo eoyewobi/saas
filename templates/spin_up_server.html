@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>PC Gaming Server Request</title>
+  </head>
+  <body>
+    <h1>PC Gaming Server Request</h1>
+    <form action="{{ url_for('spin_up_server_route') }}" method="post">
+      <input type="number" min="0" max="10" name="num_servers" placeholder="Number of servers">
+      <select name="instance_type">
+        <option value="s-1vcpu-1gb">1 vCPU, 1 GB RAM</option>
+        <option value="s-2vcpu-2gb">2 vCPU, 2 GB RAM</option>
+        <option value="s-3vcpu-3gb">3 vCPU, 3 GB RAM</option>
+      </select>
+      <input type="submit" value="Request">
+    </form>
+  </body>
+</html>
