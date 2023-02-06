@@ -1,8 +1,9 @@
 from flask import Flask, request, render_template, redirect, url_for, g
 import digitalocean
 import os
-import ssl
 from flask_login import LoginManager, current_user, UserMixin, login_user, logout_user, login_required
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, template_folder='templates')
 login_manager = LoginManager(app)
@@ -35,6 +36,32 @@ def spin_up_server(num_servers, instance_type):
 
     # Return the list of instances
     return instances
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        name = request.form.get("username")
+        password = request.form.get("password")
+        email = request.form.get("email")
+
+        # Validate the input fields
+        if name is None or name == "":
+            return "Username is required"
+        if password is None or password == "":
+            return "Password is required"
+        if email is None or email == "":
+            return "Email is required"
+
+        # Hash the password for security
+        hashed_password = generate_password_hash(password)
+
+        # Store the user data in the database
+        user = User(name=name, password=hashed_password, email=email)
+        db.session.add(user)
+        db.session.commit()
+
+        return "User registered successfully"
+    return render_template("register.html")
 
 
 class User(UserMixin):
