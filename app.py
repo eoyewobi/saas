@@ -37,6 +37,7 @@ def spin_up_server(num_servers, instance_type):
     # Return the list of instances
     return instances
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -52,6 +53,11 @@ def register():
         if email is None or email == "":
             return "Email is required"
 
+        # Check if the username already exists
+        existing_user = User.query.filter_by(name=name).first()
+        if existing_user:
+            return "Username already exists"
+
         # Hash the password for security
         hashed_password = generate_password_hash(password)
 
@@ -62,6 +68,7 @@ def register():
 
         return "User registered successfully"
     return render_template("register.html")
+
 
 
 class User(UserMixin):
