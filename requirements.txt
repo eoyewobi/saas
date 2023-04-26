@@ -15,4 +15,5 @@ SQLAlchemy==2.0.1
 typing_extensions==4.4.0
 urllib3==1.26.14
 Werkzeug==2.2.2
+wheel==0.37.1
 zipp==3.12.0

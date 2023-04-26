@@ -1,11 +1,11 @@
 FROM python:3.9.2-alpine
 
 # upgrade pip
-RUN pip3 install --upgrade pip
+RUN pip install --upgrade pip
 
 COPY app.py /app/
 COPY requirements.txt /app/
-COPY templates /app/
+COPY templates /app/templates/
 
 WORKDIR /app
 
@@ -16,9 +16,11 @@ ENV VIRTUAL_ENV=/home/app/venv
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN export FLASK_APP=app.py
-RUN pip3 install -r requirements.txt
+RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
+    && apk add build-base && pip install --no-cache-dir -r requirements.txt \
+    && apk del .build-deps
 
 # define the port number the container should expose
 EXPOSE 5000
 
-CMD ["python3", "app.py"]
+CMD ["python", "app.py"]
