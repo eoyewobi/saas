@@ -21,6 +21,6 @@ RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
     && apk del .build-deps
 
 # define the port number the container should expose
-EXPOSE 5000
+EXPOSE 8000
 
-CMD ["python", "app.py"]
+CMD ["gunicorn","-c","python:config.gunicorn", "app:create_app()"]

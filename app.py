@@ -5,10 +5,33 @@ from flask_login import LoginManager, current_user, UserMixin, login_user, logou
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 
-app = Flask(__name__, template_folder='templates')
+
+def create_app():
+    app = Flask(__name__, template_folder='templates')
+    app.debug = True
+
+    @app.route("/", methods=["GET", "POST"])
+    def login():
+        if request.method == "GET":
+            return render_template("login.html")
+
+        if request.method == "POST":
+            name = request.form.get("username")
+            password = request.form.get("password")
+
+            user = user_by_name.get(name)
+
+            if user and user.password == password:
+                login_user(user)
+                return redirect(url_for("spin_up_server_route"))
+            else:
+                return "Incorrect username or password"
+    return app
+
+
+app = create_app()
 login_manager = LoginManager(app)
 app.secret_key = os.urandom(24)
-
 
 def spin_up_server(num_servers, instance_type):
     # Initialize the DigitalOcean API client
@@ -70,7 +93,6 @@ def register():
     return render_template("register.html")
 
 
-
 class User(UserMixin):
     def __init__(self, id, name, password):
         self.id = id
@@ -109,24 +131,6 @@ def index():
     return render_template("index.html", current_user=g.current_user)
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "GET":
-        return render_template("login.html")
-
-    if request.method == "POST":
-        name = request.form.get("username")
-        password = request.form.get("password")
-
-        user = user_by_name.get(name)
-
-        if user and user.password == password:
-            login_user(user)
-            return redirect(url_for("spin_up_server_route"))
-        else:
-            return "Incorrect username or password"
-
-
 # Logout route
 @app.route("/logout")
 @login_required
@@ -145,5 +149,5 @@ def spin_up_server_route():
     return render_template("spin_up_server.html")
 
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+#if __name__ == "__main__":
+#    app.run(debug=True, host='0.0.0.0')
