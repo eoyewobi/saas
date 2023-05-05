@@ -4,6 +4,7 @@ FROM python:3.9.2-alpine
 RUN pip install --upgrade pip
 
 COPY app.py /app/
+COPY config /app/config/
 COPY requirements.txt /app/
 COPY templates /app/templates/
 
