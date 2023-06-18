@@ -21,7 +21,12 @@ RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
     && apk add build-base && pip install --no-cache-dir -r requirements.txt \
     && apk del .build-deps
 
+RUN adduser -D appuser
+USER appuser
+
 # define the port number the container should expose
 EXPOSE 8000
 
-CMD ["gunicorn","-c","python:config.gunicorn", "app:create_app()"]
+ENTRYPOINT ["gunicorn"]
+
+CMD ["-c","python:config.gunicorn", "app:create_app()"]
