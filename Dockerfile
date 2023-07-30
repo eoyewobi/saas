@@ -1,6 +1,7 @@
-FROM python:3.9-bookworm
+FROM python:3.9-alpine
+
 # Install system dependencies
-RUN apk add --no-cache libffi-dev python3-dev libc-dev
+RUN apk add --no-cache libffi-dev gcc musl-dev
 
 # Upgrade pip
 RUN pip install --upgrade pip
