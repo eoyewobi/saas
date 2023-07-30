@@ -1,5 +1,4 @@
 FROM python:3.9-bookworm
-
 # Install system dependencies
 RUN apk add --no-cache libffi-dev python3-dev libc-dev
 
@@ -15,11 +14,13 @@ ENV VIRTUAL_ENV=/home/app/venv
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install `certifi` using the system package manager
-RUN apk add --no-cache py3-certifi
+# Install pre-built wheels for certain packages, including MarkupSafe and greenlet
+RUN pip install --no-cache-dir wheel \
+    && pip wheel --no-cache-dir MarkupSafe \
+    && pip wheel --no-cache-dir greenlet
 
-# Install application requirements using `pip`
-RUN pip install --no-cache-dir -r requirements.txt
+# Install application requirements using --no-index to avoid building wheels
+RUN pip install --no-cache-dir --no-index -r requirements.txt
 
 # Add a non-root user
 RUN adduser -D 1000
