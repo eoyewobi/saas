@@ -1,4 +1,4 @@
-FROM python:3.9-bookworm
+FROM python:3.11.3-slim-buster
 
 # Upgrade pip
 RUN pip install --upgrade pip
@@ -12,14 +12,11 @@ ENV VIRTUAL_ENV=/home/app/venv
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install build dependencies, install requirements, and remove build dependencies
-RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
-    && pip install --no-cache-dir -r requirements.txt \
-    && apk del .build-deps
-
-# Add a non-root user
-RUN adduser -D 1000
-USER 1000
+# Add a non-root user with UID 1000
+RUN useradd --uid 1000 myuser
+RUN mkdir -p /home/myuser
+RUN chown -R myuser:myuser /home/myuser
+USER myuser
 
 # Define the port number the container should expose
 EXPOSE 8000
@@ -30,4 +27,3 @@ ENV FLASK_APP=app.py
 # Set the default Gunicorn configuration file and entry point
 ENTRYPOINT ["gunicorn"]
 CMD ["-c", "config.gunicorn", "app:create_app()"]
-
