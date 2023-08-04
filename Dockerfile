@@ -12,6 +12,8 @@ ENV VIRTUAL_ENV=/home/app/venv
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+RUN pip install -r requirements.txt
+
 # Add a non-root user with UID 1000
 RUN useradd --uid 1000 myuser
 RUN mkdir -p /home/myuser
