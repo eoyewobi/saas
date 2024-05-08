@@ -46,11 +46,11 @@ jobs:
     - name: Build Docker Image
       run: docker build -f Dockerfile -t myapp:latest .
 
-    - name: Set up Docker configuration
+    - name: Docker Login
       run: |
-        echo -n "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"${DOCKER_AUTH}\"}}}" > $HOME/.docker/config.json
-      env:
-        DOCKER_AUTH: $(echo -n "${{ secrets.REPO_USER }}:${{ secrets.DOCKER_TOKEN }}" | base64)
+        echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ secrets.REPO_USER }} --password-stdin
+        mkdir -p $HOME/.docker
+        cp ~/.docker/config.json $HOME/.docker/config.json
 
     - name: Run Docker Scan
       run: 
