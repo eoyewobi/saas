@@ -20,5 +20,5 @@ jobs:
     - name: Install Bandit
       run: pip install bandit
 
-    - name: Rund Bandit Scan
+    - name: Run Bandit Scan
       run: bandit -r .
