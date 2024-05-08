@@ -50,7 +50,7 @@ jobs:
       run: |
         echo -n "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"${DOCKER_AUTH}\"}}}" > $HOME/.docker/config.json
       env:
-        DOCKER_AUTH: ${{ secrets.DOCKER_TOKEN }}
+        DOCKER_AUTH: $(echo -n "${{ secrets.REPO_USER }}:${{ secrets.DOCKER_TOKEN }}" | base64)
 
     - name: Run Docker Scan
       run: 
