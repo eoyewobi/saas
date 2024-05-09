@@ -14,7 +14,7 @@ python-digitalocean==1.17.0
 requests==2.31.0
 SQLAlchemy==2.0.1
 typing_extensions==4.4.0
-urllib3==1.26.14
+urllib3==1.26.17
 Werkzeug==2.2.3
 wheel==0.38.0
 zipp==3.12.0
