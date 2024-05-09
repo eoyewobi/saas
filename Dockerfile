@@ -1,4 +1,4 @@
-FROM ppython:3.8-slim
+FROM python:3.8-slim
 
 # Upgrade pip
 RUN pip install --upgrade pip
