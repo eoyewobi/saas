@@ -8,7 +8,7 @@ gunicorn==22.0.0
 idna==3.7
 importlib-metadata==6.0.0
 Jinja2==3.1.4
-jsonpickle==3.0.1
+jsonpickle==3.3.0
 MarkupSafe==2.1.2
 python-digitalocean==1.17.0
 requests==2.32.0
