@@ -10,7 +10,7 @@ importlib-metadata==6.0.0
 Jinja2==3.1.4
 jsonpickle==3.3.0
 MarkupSafe==2.1.2
-python-digitalocean==1.17.0
+python-digitalocean==1.17.0f
 requests==2.32.0
 SQLAlchemy==2.0.1
 typing_extensions==4.4.0
@@ -19,3 +19,5 @@ Werkzeug==3.0.3
 wheel==0.38.0
 zipp==3.19.1
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
+greenlet==2.0.2
+
