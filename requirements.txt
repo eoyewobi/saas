@@ -10,7 +10,7 @@ importlib-metadata==6.0.0
 Jinja2==3.1.4
 jsonpickle==3.3.0
 MarkupSafe==2.1.2
-python-digitalocean==1.17.0f
+python-digitalocean==1.17.0
 requests==2.32.0
 SQLAlchemy==2.0.1
 typing_extensions==4.4.0
