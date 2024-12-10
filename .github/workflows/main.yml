@@ -50,7 +50,7 @@ jobs:
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.REPO_USR  }}
-        password: ${{ secrets.DOCKER_TOKEN }}
+        password: ${{ secrets.REPO_PWD }}
 
     - name: Docker Scout Scan
       uses: docker/scout-action@v1.8.0
